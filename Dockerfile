@@ -1,14 +1,12 @@
 FROM ollama/ollama:latest
 USER root
 
-# Install wget (or curl)
+# Ensure wget & python3 are present
 RUN apt-get update \
- && apt-get install -y wget \
+ && apt-get install -y wget python3-pip \
  && rm -rf /var/lib/apt/lists/*
 
-# Copy in our startup script
 COPY startup.sh /usr/local/bin/startup.sh
 RUN chmod +x /usr/local/bin/startup.sh
 
-# Make it the ENTRYPOINT
 ENTRYPOINT ["/usr/local/bin/startup.sh"]
